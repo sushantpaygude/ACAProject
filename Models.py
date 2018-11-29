@@ -18,6 +18,8 @@ from chainercv.links import YOLOv3
 from chainercv import utils
 from chainercv.visualizations import vis_bbox
 
+
+
 import timeit
 import time
 
