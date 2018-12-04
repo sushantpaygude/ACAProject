@@ -27,17 +27,18 @@ def runRCNN():
     startTime = time.time()
     #print(startTime)
     # Read an RGB image and return it in CHW format.
-    img = read_image('sample1.jpg')
+    img = read_image('sample7.jpg')
     model = SSD300(pretrained_model='voc0712')
     model1 = SSD512(pretrained_model='voc0712')
     bboxes, labels, scores = model1.predict([img])
     vis_bbox(img, bboxes[0], labels[0], scores[0],
              label_names=voc_bbox_label_names)
-    #print(time.time() - startTime)
+    print(time.time() - startTime)
     #plt.show()
+    #main()
 
 def runSSD():
-    aimage = 'sample1.jpg'
+    aimage = 'sample7.jpg'
     amodel = 'ssd300'
     apretrained_model = 'voc0712'
     agpu = -1
@@ -61,7 +62,8 @@ def runSSD():
 
     vis_bbox(
         img, bbox, label, score, label_names=voc_bbox_label_names)
-    plt.show()
+    #plt.show()
+    #main()
 
 def runYOLO():
     '''parser = argparse.ArgumentParser()
@@ -73,7 +75,7 @@ def runYOLO():
       parser.add_argument('image')
       args = parser.parse_args()'''
 
-    aimage = 'living_room.jpeg'
+    aimage = 'sample7.jpg'
     amodel = 'yolo_v2'
     apretrained_model = 'voc0712'
     agpu = -1
@@ -97,10 +99,39 @@ def runYOLO():
 
     vis_bbox(
         img, bbox, label, score, label_names=voc_bbox_label_names)
-    plt.show()
+    #plt.show()
+    #main()
+
+
+def main():
+    while True:
+
+        print("1.RCNN \n 2.SSD \n 3.YOLO 4.Exit\n Select model :")
+        selection = input()
+        print(selection)
+        if selection == '1':
+            print("RCNNN")
+            totalTime = timeit.timeit("runRCNN()", setup="from __main__ import runRCNN", number=10)
+            print(totalTime / 10)
+
+
+        elif selection == '2':
+            print("SSD")
+            totalTime = timeit.timeit("runSSD()", setup="from __main__ import runSSD", number=10)
+            print(totalTime / 10)
+            #main()
+
+        elif selection == '3':
+            print("YOLO")
+            totalTime = timeit.timeit("runYOLO()", setup="from __main__ import runYOLO", number=10)
+            print(totalTime / 10)
+            #main()
+        else:
+            quit()
 
 
 if __name__ == '__main__':
-    print("RUNNING")
-    totalTime = timeit.timeit("runRCNN()", setup="from __main__ import runRCNN",number=10)
-    print(totalTime/10)
+    main()
+    # runRCNN()
+    # runSSD()
+    # runYOLO()
